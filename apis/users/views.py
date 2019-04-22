@@ -1,9 +1,9 @@
 from flask.views import MethodView
 from flask import Blueprint, url_for
 from apis.users.models import User
-from app import db
+from exts import db
 from tools.redis_api import redis_cli
-
+from flask import current_app
 bp_users = Blueprint('users', __name__, url_prefix='/api/v1')
 
 
@@ -25,6 +25,7 @@ class UserView(MethodView):
         user = User(username='admin', password='admin@example.com', sex=1, name='bobo')
         db.session.add(user)
         db.session.commit()
+        current_app.logger.debug('A value for debugging')
         return "Success"
 
     def post(self):

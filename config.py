@@ -1,5 +1,6 @@
 # 设置debug模式
 DEBUG = True
+# secret_key是用来保护用户端的session安全的
 SECRET_KEY = "123#234"
 
 DIALECT = 'mysql'

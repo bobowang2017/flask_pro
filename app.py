@@ -1,5 +1,5 @@
 from flask import Flask
-
+import logging
 import config
 from exts import db
 from apis.orders.views import bp_orders
@@ -8,13 +8,22 @@ from apis.users.views import bp_users
 # 需要传递一个参数__name__
 # 1、方便flask框架去寻找资源
 # 2、方便flask插件比如Flask-SQLAlchemy出现错误的时候好去寻找问题所在的位置
+
 app = Flask(__name__)
 # 注册蓝图
 app.register_blueprint(bp_orders)
 app.register_blueprint(bp_users)
+
 # 读取并加载数据库配置
 app.config.from_object(config)
 db.init_app(app)
+
+# 定义日志配置
+handler = logging.FileHandler('app.log', encoding='UTF-8')
+logging_format = logging.Formatter(
+    '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+handler.setFormatter(logging_format)
+app.logger.addHandler(handler)
 
 
 @app.before_request
