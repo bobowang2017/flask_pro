@@ -1,7 +1,7 @@
-from flask import Blueprint, request
+from flask import request
 from flask.views import MethodView
 
-bp_orders = Blueprint('orders', __name__, url_prefix='/api/v1')
+from apis.orders import bp_orders
 
 
 @bp_orders.route('/orders/<int:page>', methods=['GET'])

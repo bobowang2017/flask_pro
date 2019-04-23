@@ -1,10 +1,10 @@
 from flask.views import MethodView
-from flask import Blueprint, url_for
+from flask import url_for
+from apis.users import bp_users
 from apis.users.models import User
 from exts import db
 from tools.redis_api import redis_cli
 from flask import current_app
-bp_users = Blueprint('users', __name__, url_prefix='/api/v1')
 
 
 @bp_users.route('/list/<int:page>', methods=['GET'])
