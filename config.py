@@ -16,3 +16,15 @@ SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALEC
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+
+# redis 配置
+REDIS_CONFIG = {
+    "host": "localhost",
+    "port": 6379
+}
+
+# ElasticSearch配置
+ES_CONFIG = {
+    "host": "localhost",
+    "port": 63790
+}
