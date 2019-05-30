@@ -2,12 +2,16 @@ import json
 from flask.views import MethodView
 from apis.latest_used.models import Project, ApplicationProjectMapping
 from exts import db
+from tools.execute_sql import dict_fetchall
 
 
 class ProjectView(MethodView):
 
     def get(self):
-        return json.dumps({"code": 0, "msg": Project.query.all()})
+        sql = """select * from project order by updated_time desc limit {}""".format(10)
+        result = dict_fetchall(sql)
+        print(result)
+        return json.dumps({'code': 0, 'msg': result})
 
     def post(self):
         project = Project(1, "123", name="wangbobo", description="test")
