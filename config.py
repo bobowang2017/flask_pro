@@ -8,7 +8,7 @@ DRIVER = 'pymysql'
 USERNAME = 'root'
 PASSWORD = 'root'
 HOST = '127.0.0.1'
-PORT = '3306'
+PORT = '3333'
 DATABASE = 'study'
 
 SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST,

@@ -1,6 +1,7 @@
+import json
 from datetime import datetime
 
-from sqlalchemy import Column, DateTime, Integer, String, Text, ForeignKey
+from sqlalchemy import Column, DateTime, Integer, String, Text, ForeignKey, Numeric
 
 from exts import db
 
@@ -16,7 +17,6 @@ class Project(db.Model, BaseModel):
     code = Column(String(15), nullable=False, unique=True, index=True)
     name = Column(String(100))
     description = Column(Text)
-    app_pro_mapping = db.relationship('ApplicationProjectMapping', backref='project')
 
     def __init__(self, id, code, name=None, description=None):
         self.id = id
