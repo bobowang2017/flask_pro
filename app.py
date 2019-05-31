@@ -20,7 +20,6 @@ app.register_blueprint(bp_users)
 app.register_blueprint(bp_projects)
 app.add_url_rule("/api/v1/projects", view_func=ProjectView.as_view('projects'))
 app.add_url_rule("/api/v1/app_pro_mapping", view_func=AppProMappingVIew.as_view('app_pro_mapping'))
-
 # 读取并加载数据库配置
 app.config.from_object(config)
 db.init_app(app)
