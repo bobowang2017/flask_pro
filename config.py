@@ -1,5 +1,3 @@
-# 设置debug模式
-DEBUG = True
 # secret_key是用来保护用户端的session安全的
 SECRET_KEY = "123#234"
 
@@ -16,6 +14,8 @@ SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALEC
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+
+SQLALCHEMY_ECHO = True
 
 # redis 配置
 REDIS_CONFIG = {

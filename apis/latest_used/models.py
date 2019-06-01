@@ -25,8 +25,8 @@ class Project(db.Model, BaseModel):
         self.description = description
 
 
-class ApplicationProjectMapping(db.Model):
-    __tablename__ = "app_pro_mapping"
+class Application(db.Model):
+    __tablename__ = "application"
 
     id = Column(Integer, primary_key=True)
     # app_id = Column(Integer, ForeignKey("application.id"))
@@ -37,4 +37,4 @@ class ApplicationProjectMapping(db.Model):
     updated_time = Column(DateTime, onupdate=datetime.now)
 
     def __repr__(self):
-        return '<ApplicationProjectMapping %r>' % self.id
+        return '<Application %r>' % self.id

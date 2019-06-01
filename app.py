@@ -3,7 +3,7 @@ import logging
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 import config
-from apis.latest_used.views import ProjectView, AppProMappingVIew
+from apis.latest_used.views import ProjectView, ApplicationVIew
 from exts import db
 from apis.orders.views import bp_orders
 from apis.users.views import bp_users
@@ -19,11 +19,10 @@ app.register_blueprint(bp_orders)
 app.register_blueprint(bp_users)
 app.register_blueprint(bp_projects)
 app.add_url_rule("/api/v1/projects", view_func=ProjectView.as_view('projects'))
-app.add_url_rule("/api/v1/app_pro_mapping", view_func=AppProMappingVIew.as_view('app_pro_mapping'))
+app.add_url_rule("/api/v1/app_pro_mapping", view_func=ApplicationVIew.as_view('app_pro_mapping'))
 # 读取并加载数据库配置
 app.config.from_object(config)
 db.init_app(app)
-
 # 定义日志配置
 handler = logging.FileHandler('app.log', encoding='UTF-8')
 logging_format = logging.Formatter(
@@ -50,5 +49,5 @@ def process_response(response):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0")
+    app.run(host="0.0.0.0", debug=True)
     # manager.run()
