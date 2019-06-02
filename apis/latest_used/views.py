@@ -9,6 +9,7 @@ from apis.latest_used.schema import app_schema
 from exts import db
 from flask_restful import request, Resource
 from tools.execute_sql import dict_fetchall
+from tools.helper import standardize_api_response
 
 
 class ProjectView(Resource):
@@ -43,8 +44,9 @@ class ApplicationVIew(Resource):
         db.session.commit()
         return json.dumps({"code": 0, "msg": "success"})
 
+    @standardize_api_response
     def get(self):
         params = request.args
         data = Application.query.all()
         result = app_schema.dump(data, many=True)
-        return {"code": 0, "msg": result.data}
+        return {"success": result.data}
