@@ -48,6 +48,5 @@ class ApplicationVIew(Resource):
         logger.info("*"*60)
         data = Application.query.all()
         result = app_schema.dump(data, many=True)
-
         hello = db.session.query(Application).join(Application.project).all()
         return {"success": result.data}
