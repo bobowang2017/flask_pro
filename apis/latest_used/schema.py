@@ -1,19 +1,23 @@
 # -*- coding: utf-8 -*-
-from marshmallow import Schema, fields
+from app import ma
 
 
-class ProjectSchema(Schema):
-    id = fields.Integer()
-    code = fields.Str()
-    name = fields.Str()
-    description = fields.Str()
-    created_time = fields.DateTime()
-    updated_time = fields.DateTime()
+class ProjectSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "code", "name", "description", "created_time", "updated_time")
 
 
-class ApplicationSchema(Schema):
-    id = fields.Integer()
-    app_name = fields.Str()
-    pro_id = fields.Integer()
-    created_time = fields.DateTime()
-    updated_time = fields.DateTime()
+class ApplicationSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "app_name", "pro_id", "created_time", "updated_time", "project")
+
+    project = ma.Nested(ProjectSchema)
+
+    # links = ma.Hyperlinks({
+    #     'self': ma.URLFor('book_detail', id='<id>'),
+    #     'collection': ma.URLFor('book_list')
+    # })
+
+
+app_schema = ApplicationSchema()
+pro_schema = ProjectSchema()

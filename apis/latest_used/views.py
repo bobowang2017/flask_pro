@@ -1,16 +1,14 @@
 import json
 
-from flask.views import MethodView
-
 from apis.latest_used.functions import serializer
 from apis.latest_used.models import Project, Application
-from apis.latest_used.schema import ApplicationSchema
+from apis.latest_used.schema import app_schema
 from exts import db
-from flask_restful import request, Resource, fields
+from flask_restful import request, Resource
 from tools.execute_sql import dict_fetchall
 
 
-class ProjectView(MethodView):
+class ProjectView(Resource):
 
     def get(self):
         print(request.args)
@@ -31,13 +29,6 @@ class ProjectView(MethodView):
 
 
 class ApplicationVIew(Resource):
-    application_fields = {
-        'id': fields.Integer,
-        'app_name': fields.String,
-        'pro_id': fields.Integer,
-        'created_time': fields.DateTime,
-        'updated_time': fields.DateTime
-    }
 
     def post(self):
         app_pro_mapping = Application(app_name="456", pro_id=1)
@@ -48,6 +39,5 @@ class ApplicationVIew(Resource):
     def get(self):
         params = request.args
         data = Application.query.all()
-        schema = ApplicationSchema()
-        result = schema.dump(data, many=True)
+        result = app_schema.dump(data, many=True)
         return {"code": 0, "msg": result.data}

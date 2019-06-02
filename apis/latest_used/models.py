@@ -1,4 +1,3 @@
-import json
 from datetime import datetime
 
 from sqlalchemy import Column, DateTime, Integer, String, Text, ForeignKey, Numeric
@@ -29,12 +28,16 @@ class Application(db.Model):
     __tablename__ = "application"
 
     id = Column(Integer, primary_key=True)
-    # app_id = Column(Integer, ForeignKey("application.id"))
     app_name = Column(String(100), nullable=False)
     pro_id = Column(Integer, ForeignKey("project.id"))
-    # project = db.relationship("Project", backref='')
     created_time = Column(DateTime, default=datetime.now)
     updated_time = Column(DateTime, onupdate=datetime.now)
+
+    # def __init__(self, id, app_name, pro_id, project):
+    #     self.id = id
+    #     self.app_name = app_name
+    #     self.pro_id = pro_id
+    #     self.project = project
 
     def __repr__(self):
         return '<Application %r>' % self.id
