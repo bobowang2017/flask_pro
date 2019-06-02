@@ -1,10 +1,7 @@
 from flask import Flask
-import logging
-
-
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
-import config
+from settings import  CONFIG
 from exts import db, ma
 from apis.orders.views import bp_orders
 from apis.users.views import bp_users
@@ -21,15 +18,8 @@ app.register_blueprint(bp_users)
 app.register_blueprint(bp_latest_used)
 
 # 读取并加载数据库配置
-app.config.from_object(config)
+app.config.from_object(CONFIG['local'])
 db.init_app(app)
-
-# 定义日志配置
-handler = logging.FileHandler('app.log', encoding='UTF-8')
-logging_format = logging.Formatter(
-    '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
-handler.setFormatter(logging_format)
-app.logger.addHandler(handler)
 
 # migrate
 migrate = Migrate(app, db)
@@ -54,4 +44,4 @@ def process_response(response):
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
-    # manager.run()
+    manager.run()

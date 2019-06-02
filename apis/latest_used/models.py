@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Column, DateTime, Integer, String, Text, ForeignKey, Numeric
+from sqlalchemy import Column, DateTime, Integer, String, Text, ForeignKey
 
 from exts import db
 
