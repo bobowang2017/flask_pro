@@ -1,5 +1,8 @@
 import json
 
+from flask import jsonify
+from marshmallow import ValidationError
+
 from apis.latest_used.functions import serializer
 from apis.latest_used.models import Project, Application
 from apis.latest_used.schema import app_schema
@@ -31,8 +34,12 @@ class ProjectView(Resource):
 class ApplicationVIew(Resource):
 
     def post(self):
-        app_pro_mapping = Application(app_name="456", pro_id=1)
-        db.session.add(app_pro_mapping)
+        params = request.get_json()
+        data = app_schema.load(params)
+        if data.errors:
+            raise Exception(data.errors)
+        obj = Application(app_name=data.data['app_name'], pro_id=data.data['pro_id'])
+        db.session.add(obj)
         db.session.commit()
         return json.dumps({"code": 0, "msg": "success"})
 

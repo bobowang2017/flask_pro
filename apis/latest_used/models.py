@@ -17,12 +17,6 @@ class Project(db.Model, BaseModel):
     name = Column(String(100))
     description = Column(Text)
 
-    def __init__(self, id, code, name=None, description=None):
-        self.id = id
-        self.code = code
-        self.name = name
-        self.description = description
-
 
 class Application(db.Model):
     __tablename__ = "application"
@@ -30,14 +24,9 @@ class Application(db.Model):
     id = Column(Integer, primary_key=True)
     app_name = Column(String(100), nullable=False)
     pro_id = Column(Integer, ForeignKey("project.id"))
+    project = db.relationship('Project', backref=db.backref('application', lazy='dynamic'))
     created_time = Column(DateTime, default=datetime.now)
     updated_time = Column(DateTime, onupdate=datetime.now)
-
-    # def __init__(self, id, app_name, pro_id, project):
-    #     self.id = id
-    #     self.app_name = app_name
-    #     self.pro_id = pro_id
-    #     self.project = project
 
     def __repr__(self):
         return '<Application %r>' % self.id
