@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
-from settings import  CONFIG
+
+from apis.student import bp_student
+from settings import CONFIG
 from exts import db, ma
 from apis.orders.views import bp_orders
 from apis.users.views import bp_users
@@ -16,6 +18,7 @@ app = Flask(__name__)
 app.register_blueprint(bp_orders)
 app.register_blueprint(bp_users)
 app.register_blueprint(bp_latest_used)
+app.register_blueprint(bp_student)
 
 # 读取并加载数据库配置
 app.config.from_object(CONFIG['local'])

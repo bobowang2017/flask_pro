@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from marshmallow import validates, ValidationError
 
-from app import ma
+from exts import ma
 
 
 class ProjectSchema(ma.Schema):

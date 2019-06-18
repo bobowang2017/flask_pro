@@ -20,7 +20,7 @@ class ProjectView(Resource):
 
     def post(self):
         print(request.get_json())
-        project = Project(1, "123", name="wangbobo", description="test")
+        project = Project(code="123", name="wangbobo", description="test")
         db.session.add(project)
         db.session.commit()
         return json.dumps({"code": 0, "msg": "success"})
