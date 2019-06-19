@@ -27,4 +27,5 @@ class StudentView(Resource):
         if not student_id:
             raise Exception("StudentId Is None")
         Student.query.filter_by(id=student_id).delete()
+        db.session.commit()
         return jsonify({'code': 0, 'msg': 'success'})
