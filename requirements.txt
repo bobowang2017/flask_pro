@@ -10,4 +10,6 @@ flask-marshmallow==0.10.1
 gevent==1.4.0
 gunicorn==19.9.0
 marshmallow-sqlalchemy==0.16.4
+celery==4.3.0
+flask_celery==2.4.3
 #pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package

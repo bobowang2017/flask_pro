@@ -6,6 +6,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class BaseConfig:
     SECRET_KEY = os.getenv('SECRET_KEY', 'some secret words')
+    CELERY_CONFIG = {
+        'CELERY_BROKER_URL': 'redis://localhost:6379/0',
+        'CELERY_RESULT_BACKEND': 'redis://localhost:6379/1',
+    }
 
 
 class DevelopmentConfig(BaseConfig):
@@ -17,7 +21,8 @@ class DevelopmentConfig(BaseConfig):
     HOST = '127.0.0.1'
     PORT = '3306'
     DATABASE = 'study'
-    SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST,
+    SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALECT, DRIVER, USERNAME, PASSWORD,
+                                                                              HOST,
                                                                               PORT, DATABASE)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
@@ -37,7 +42,8 @@ class LocalConfig(BaseConfig):
     HOST = '127.0.0.1'
     PORT = '3306'
     DATABASE = 'study'
-    SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST,
+    SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALECT, DRIVER, USERNAME, PASSWORD,
+                                                                              HOST,
                                                                               PORT, DATABASE)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = False

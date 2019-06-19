@@ -1,11 +1,13 @@
 # 防止循环引用问题
 import logging
 
+from celery import Celery
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
 db = SQLAlchemy()
 ma = Marshmallow()
+celery = Celery()
 
 # 定义日志配置
 logger = logging.getLogger(__name__)

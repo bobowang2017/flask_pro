@@ -3,6 +3,7 @@ import json
 from flask import request, jsonify
 from flask_restful import Resource
 from apis.student.models import Student, Teacher
+from apis.student.tasks import my_background_task
 from exts import db
 
 
@@ -28,4 +29,10 @@ class StudentView(Resource):
             raise Exception("StudentId Is None")
         Student.query.filter_by(id=student_id).delete()
         db.session.commit()
+        return jsonify({'code': 0, 'msg': 'success'})
+
+
+class CeleryTaskView(Resource):
+    def get(self):
+        my_background_task.delay(10, 20)
         return jsonify({'code': 0, 'msg': 'success'})

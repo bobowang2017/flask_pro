@@ -4,7 +4,7 @@ from flask_script import Manager
 
 from apis.student import bp_student
 from settings import CONFIG
-from exts import db, ma
+from exts import db, ma, celery
 from apis.orders.views import bp_orders
 from apis.users.views import bp_users
 from apis.latest_used import bp_latest_used
@@ -31,6 +31,9 @@ manager.add_command('db', MigrateCommand)
 
 # 初始化flask-marshmallow
 ma.init_app(app)
+
+# 初始化celery
+celery.conf.update(CONFIG['local'].CELERY_CONFIG)
 
 
 @app.before_request
