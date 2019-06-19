@@ -15,7 +15,7 @@ class DevelopmentConfig(BaseConfig):
     USERNAME = 'root'
     PASSWORD = 'root'
     HOST = '127.0.0.1'
-    PORT = '3333'
+    PORT = '3306'
     DATABASE = 'study'
     SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST,
                                                                               PORT, DATABASE)
@@ -35,13 +35,14 @@ class LocalConfig(BaseConfig):
     USERNAME = 'root'
     PASSWORD = 'root'
     HOST = '127.0.0.1'
-    PORT = '3333'
+    PORT = '3306'
     DATABASE = 'study'
     SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST,
                                                                               PORT, DATABASE)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_ECHO = True
+    SQLALCHEMY_NATIVE_UNICODE = True
 
 
 CONFIG = {
