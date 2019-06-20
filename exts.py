@@ -7,7 +7,7 @@ from flask_marshmallow import Marshmallow
 
 db = SQLAlchemy()
 ma = Marshmallow()
-celery = Celery()
+celery = Celery(broker='redis://localhost:6379/0')
 
 # 定义日志配置
 logger = logging.getLogger(__name__)

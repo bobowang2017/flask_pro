@@ -7,8 +7,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class BaseConfig:
     SECRET_KEY = os.getenv('SECRET_KEY', 'some secret words')
     CELERY_CONFIG = {
-        'CELERY_BROKER_URL': 'redis://localhost:6379/0',
-        'CELERY_RESULT_BACKEND': 'redis://localhost:6379/1',
+        # 'broker_url ': 'redis://localhost:6379/0',
+        'result_backend ': 'redis://localhost:6379/1',
     }
 
 
