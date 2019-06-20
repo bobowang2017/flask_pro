@@ -1,9 +1,12 @@
+import json
+
 from flask import request, jsonify
 from flask_restful import Resource
 from celery.result import AsyncResult
 from apis.student.models import Student, Teacher
 from apis.student.tasks import my_background_task
 from exts import db
+from tools.redis_api import redis_cli
 
 
 class StudentView(Resource):
@@ -39,5 +42,8 @@ class CeleryTaskView(Resource):
 
 class CeleryTaskResultView(Resource):
     def get(self):
-        res = AsyncResult("bff19ef2-fcad-4b85-9792-6d56184020e9")
+        # key = "celery-task-meta-"+"f988b061-8b57-4d3f-a678-d17ae79e1f54"
+        # result = redis_cli.get_instance(key)
+        res = AsyncResult("f988b061-8b57-4d3f-a678-d17ae79e1f54", backend='redis://localhost:6379/1')
         return jsonify({'code': 0, 'msg': res.result})
+        # return json.loads(result)
