@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from flask_restful import Resource
+from celery.result import AsyncResult
 from apis.student.models import Student, Teacher
 from apis.student.tasks import my_background_task
 from exts import db
@@ -34,3 +35,9 @@ class CeleryTaskView(Resource):
     def get(self):
         my_background_task.apply_async((4, 5))
         return jsonify({'code': 0, 'msg': 'success'})
+
+
+class CeleryTaskResultView(Resource):
+    def get(self):
+        res = AsyncResult("bff19ef2-fcad-4b85-9792-6d56184020e9")
+        return jsonify({'code': 0, 'msg': res.result})

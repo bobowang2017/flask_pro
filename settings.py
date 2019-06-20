@@ -13,7 +13,7 @@ class BaseConfig:
 
 
 class DevelopmentConfig(BaseConfig):
-    DEBUG = True
+    DEBUG = False
     DIALECT = 'mysql'
     DRIVER = 'pymysql'
     USERNAME = 'root'
