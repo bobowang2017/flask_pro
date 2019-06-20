@@ -1,5 +1,3 @@
-import json
-
 from flask import request, jsonify
 from flask_restful import Resource
 from apis.student.models import Student, Teacher
@@ -34,5 +32,5 @@ class StudentView(Resource):
 
 class CeleryTaskView(Resource):
     def get(self):
-        my_background_task.delay(10, 20)
+        my_background_task.apply_async((4, 5))
         return jsonify({'code': 0, 'msg': 'success'})
