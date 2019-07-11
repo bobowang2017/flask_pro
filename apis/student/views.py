@@ -1,31 +1,32 @@
-import json
-
 from flask import request, jsonify
 from flask_restful import Resource
 from celery.result import AsyncResult
+
+from apis.student.dao import StudentDao
 from apis.student.models import Student, Teacher
 from apis.student.tasks import my_background_task
 from exts import db
-from tools.redis_api import redis_cli
 
 
 class StudentView(Resource):
 
     def get(self):
         print(request.args)
+        result = StudentDao.get(1)
+        return result
         # 这种方式返回的只有Student对象
         # data = Student.query.join(Teacher, Student.teacher_id == Teacher.id).add_entity(Teacher).all()
         # 这种方式返回的只有Teacher.name, Student.name字段
         # data = db.session.query(Teacher.name, Student.name).join(Teacher, Student.teacher_id == Teacher.id).all()
         # 这种方式返回的是指定的字段，不过是列表元组的形式返回
 
-        query = db.session.query(Teacher, Student).join(Teacher, Student.teacher_id == Teacher.id).with_entities(
-            Teacher.name, Teacher.sex, Student.id, Student.name, Student.sex, Student.birthday)
-        data = query.all()
-        desc = query.column_descriptions
-        print(desc)
-        res = [dict(zip(('tname', 'tsex', 'sid', 'sname', 'ssex', 'sbir'), _d)) for _d in data]
-        return jsonify({'code': 0, 'msg': res})
+        # query = db.session.query(Teacher, Student).join(Teacher, Student.teacher_id == Teacher.id).with_entities(
+        #     Teacher.name, Teacher.sex, Student.id, Student.name, Student.sex, Student.birthday)
+        # data = query.all()
+        # desc = query.column_descriptions
+        # print(desc)
+        # res = [dict(zip(('tname', 'tsex', 'sid', 'sname', 'ssex', 'sbir'), _d)) for _d in data]
+        # return jsonify({'code': 0, 'msg': res})
         # return json.dumps({'code': 0, 'msg': res}, ensure_ascii=False)
 
     def delete(self):

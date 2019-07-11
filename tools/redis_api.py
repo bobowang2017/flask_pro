@@ -1,13 +1,11 @@
 import redis
-from config import REDIS_CONFIG
-
 redis_valid_time = 60 * 60
 
 
 class RedisClient:
     def __init__(self):
-        self.host = REDIS_CONFIG['host']
-        self.port = REDIS_CONFIG['port']
+        self.host = "localhost"
+        self.port = "6379"
 
     @property
     def redis_client(self):
