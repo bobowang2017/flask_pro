@@ -1,10 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import traceback
 
 
 class ApiError(Exception):
-    def __init__(self, value="unknow reason", op="", data=None):
+    def __init__(self, value="UnKnow Reason", op="", data=None):
         self.value = str(value)
         self.data = data
         self.op = str(op)
@@ -23,9 +21,9 @@ class ApiError(Exception):
 
     @property
     def is_not_exist_error(self):
-        if not hasattr(self, "_noexist"):
-            self._noexist = False
-        return self._noexist
+        if not hasattr(self, "_not_exist"):
+            self._not_exist = False
+        return self._not_exist
 
 
 class NoAccess(ApiError):
@@ -51,28 +49,18 @@ class InputError(ApiError):
 
 class ErrorReturnData(ApiError):
     def __init__(self, value="unknow reason", data=None, op=""):
-        ##便于跟踪进一步的错误，错误数据放置data中
         self.data = data
         super().__init__(value, op)
 
 
 class NeedRecordError(ApiError):
     def __init__(self, value="unknow reason", data=None):
-        ##错误需要入库或记录单独的日志，一般用错误发生致状态不可逆时使用。如：
-        ##value: 注册xx服务失败，主机xxx连不上
-        ##data：因注册xx服务失败且恢复失败，需要手工删除yyy服务
         self.data = data
         super().__init__(value)
 
 
 class InternalError(ApiError):
     def __init__(self, value="内部错误", data=None):
-        ##错误需要入库或记录单独的日志，一般用错误发生致状态不可逆时使用。如：
-        ##value: 注册xx服务失败，主机xxx连不上
-        ##data：因注册xx服务失败且恢复失败，需要手工删除yyy服务
         self.data = data
         super().__init__(value)
 
-
-def sufei_debug():
-    traceback.print_exc(file=open('/tmp/sufei_debug', 'a+'))
