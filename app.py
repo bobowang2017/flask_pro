@@ -48,6 +48,11 @@ def process_response(response):
     return response
 
 
+@app.before_first_request
+def first(*args, **kwargs):
+    pass
+
+
 @app.errorhandler(404)
 def error_404(arg):
     return "走错了"
