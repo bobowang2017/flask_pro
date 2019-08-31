@@ -48,6 +48,11 @@ def process_response(response):
     return response
 
 
+@app.errorhandler(404)
+def error_404(arg):
+    return "走错了"
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
     manager.run()
