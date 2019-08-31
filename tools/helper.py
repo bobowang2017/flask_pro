@@ -54,13 +54,14 @@ def standardize_api_response(func):
         #     return response_error_dict(500, str(e))
         if result is None:
             return response_error_dict(400, '')
-        if not set(available_result_keys) & set(result.keys()):
-            raise ValueError('Invalid result key.')
-
-
-        status_code, description = status_code_and_descriptions[
-            next(iter(result.keys()))
-        ]
+        return json.dumps({"code": 200, "result": result}, ensure_ascii=False)
+        # if not set(available_result_keys) & set(result.keys()):
+        #     raise ValueError('Invalid result key.')
+        #
+        #
+        # status_code, description = status_code_and_descriptions[
+        #     next(iter(result.keys()))
+        # ]
         #
         # status_code = ("status", status_code)
         # description = (
@@ -88,7 +89,8 @@ def standardize_api_response(func):
         #             [("success", True), status_code, description, ("total", len(data[1])), data]), status_code[-1]
         #     else:
         #         return collections.OrderedDict([("success", True), status_code, description, data]), status_code[-1]
-        return result
+        # return result
+
     return make_response
 
 

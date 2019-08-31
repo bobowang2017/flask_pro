@@ -1,23 +1,14 @@
-from flask import Blueprint, request
-from flask.views import MethodView
-
-bp_orders = Blueprint('orders', __name__, url_prefix='/api/v1')
+from apis.base.base_model import BaseModel
+from exts import db
 
 
-@bp_orders.route('/orders/<int:page>', methods=['GET'])
-def lists(page=1):
-    print(page)
-    v = request.args.get('p')
-    print('x=%s' % v)
-    return "<h1>Bo bo</h1>"
+class Order(db.Model, BaseModel):
+    __tablename__ = "order"
 
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    good_id = db.Column(db.Integer, nullable=False)
+    good_price = db.Column(db.FLOAT, nullable=False)
 
-class OrderView(MethodView):
-    def get(self):
-        return "<h1>Get Bo bo wang</h1>"
-
-    def post(self):
-        return "<h1>Post Bo bo wang</h1>"
-
-
-bp_orders.add_url_rule('/orders', view_func=OrderView.as_view('orders'))
+    def __repr__(self):
+        return '<Order %r>' % self.id

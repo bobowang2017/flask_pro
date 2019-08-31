@@ -14,7 +14,6 @@ celery = Celery(broker='redis://localhost:6379/0', backend='redis://localhost:63
 logger = logging.getLogger(__name__)
 logger.setLevel(level=logging.INFO)
 handler = logging.FileHandler('app.log', encoding='UTF-8')
-handler.setLevel(logging.INFO)
 logging_format = logging.Formatter(
     '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
 handler.setFormatter(logging_format)
